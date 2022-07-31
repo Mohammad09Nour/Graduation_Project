@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/constants.dart';
+import 'package:flutter_application_1/constants/constants.dart';
 import 'package:flutter_application_1/models/item_info.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 

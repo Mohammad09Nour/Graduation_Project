@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/constants.dart';
+import 'package:flutter_application_1/constants/constants.dart';
 
 class UserName extends StatelessWidget {
   const UserName({Key? key}) : super(key: key);

@@ -6,7 +6,7 @@ import 'package:flutter_application_1/widgets/submit_button.dart';
 import 'package:flutter_application_1/widgets/username_text_field.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../constants.dart';
+import '../constants/constants.dart';
 
 class RegisterPage extends StatelessWidget {
   final bool isLogin;

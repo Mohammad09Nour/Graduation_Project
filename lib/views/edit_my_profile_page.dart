@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/constants.dart';
+import 'package:flutter_application_1/constants/constants.dart';
 import 'package:flutter_application_1/models/item_info.dart';
-import 'package:flutter_application_1/pages/details_page.dart';
-import 'package:flutter_application_1/pages/edit_personal_info.dart';
-import 'package:flutter_application_1/pages/login_screen.dart';
+import 'package:flutter_application_1/views/details_page.dart';
+import 'package:flutter_application_1/views/edit_personal_info.dart';
+import 'package:flutter_application_1/views/login_screen.dart';
 
 class EditMyProfile extends StatefulWidget {
   const EditMyProfile({Key? key}) : super(key: key);

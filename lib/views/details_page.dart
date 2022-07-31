@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/constants.dart';
+import 'package:flutter_application_1/constants/constants.dart';
 import 'package:flutter_application_1/models/item_info.dart';
 import 'package:flutter_application_1/widgets/networking_page_provider.dart';
 import 'package:url_launcher/url_launcher.dart';

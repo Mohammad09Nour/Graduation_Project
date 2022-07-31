@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/constants.dart';
+import 'package:flutter_application_1/constants/constants.dart';
 import 'package:flutter_application_1/controller/home_page_controller.dart';
 import 'package:flutter_application_1/models/item_info.dart';
-import 'package:flutter_application_1/pages/details_page.dart';
-import 'package:flutter_application_1/pages/profil_page.dart';
+import 'package:flutter_application_1/views/details_page.dart';
+import 'package:flutter_application_1/views/profil_page.dart';
 import 'package:flutter_application_1/widgets/MySearchDelegate.dart';
 import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';

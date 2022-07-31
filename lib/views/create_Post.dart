@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/controller/create_post_controller.dart';
 import 'package:flutter_application_1/controller/home_page_controller.dart';
 import 'package:flutter_application_1/models/item_info.dart';
-import 'package:flutter_application_1/pages/home_page.dart';
+import 'package:flutter_application_1/views/home_page.dart';
 import 'package:get/get.dart';
 import 'package:image_picker_web/image_picker_web.dart';
 

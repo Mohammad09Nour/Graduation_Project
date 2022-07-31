@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../constants.dart';
+import '../constants/constants.dart';
 
 class DoYouHaveAnAccount extends StatelessWidget {
   final double viewInsets;

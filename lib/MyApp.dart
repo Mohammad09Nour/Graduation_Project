@@ -1,6 +1,6 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/login_screen.dart' show LoginScreen;
+import 'package:flutter_application_1/views/login_screen.dart' show LoginScreen;
 
 import 'package:flutter/gestures.dart';
 import 'package:get/get_navigation/get_navigation.dart';

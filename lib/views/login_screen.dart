@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/constants.dart';
+import 'package:flutter_application_1/constants/constants.dart';
 import 'package:flutter_application_1/models/password_args.dart';
-import 'package:flutter_application_1/pages/RegisterPage.dart';
-import 'package:flutter_application_1/pages/home_page.dart';
+import 'package:flutter_application_1/views/RegisterPage.dart';
+import 'package:flutter_application_1/views/home_page.dart';
 import 'package:flutter_application_1/widgets/do_you_have_an.dart';
 import 'package:flutter_application_1/widgets/passwordFormField.dart';
 import 'package:flutter_application_1/widgets/submit_button.dart';

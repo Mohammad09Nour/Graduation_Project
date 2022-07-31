@@ -2,7 +2,7 @@ import 'dart:js';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/item_info.dart';
-import 'package:flutter_application_1/pages/details_page.dart';
+import 'package:flutter_application_1/views/details_page.dart';
 
 class MySearchDelegate extends SearchDelegate {
   @override
