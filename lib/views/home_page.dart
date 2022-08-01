@@ -36,7 +36,7 @@ class HomePage extends StatelessWidget {
               getBody(controller, context),
               //MainHomePage(),
               CreatePost(),
-              const EditMyProfile(),
+              EditMyProfile(),
             ]),
         bottomNavigationBar: BottomNavyBar(
           onItemSelected: (index) {
@@ -180,20 +180,20 @@ class HomePage extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: ReadMoreText(
-                    "some description for this post and this description will be available on monday some description for this post and this description will be available on monday",
+                    item.descriptions,
                     trimLines: 2,
                     trimMode: TrimMode.Line,
                     colorClickableText: kPrimaryColor,
                     trimCollapsedText: '...Read more',
                     trimExpandedText: ' Less',
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 17, textBaseline: TextBaseline.alphabetic),
                   ),
                 ),
@@ -213,7 +213,7 @@ class HomePage extends StatelessWidget {
                           color: Colors.black.withOpacity(0.3),
                           spreadRadius: 2,
                           blurRadius: 20,
-                          offset: Offset(0, 10),
+                          offset: const Offset(0, 10),
                         )
                       ],
                       image: DecorationImage(

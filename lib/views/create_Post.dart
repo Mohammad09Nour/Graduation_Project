@@ -47,56 +47,10 @@ class CreatePost extends StatelessWidget {
                 height: MediaQuery.of(context).size.height / 1.2,
                 child: ListView(
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 15),
-                      child: Center(
-                        child: Text(
-                          "WE ARE THANKFUL FOR YOUR HELP",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.green,
-                              fontSize: 18),
-                        ),
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: TextField(
-                              // controller: titleController,
-                              controller: controller.titleController.value,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                filled: true,
-                                hintStyle: TextStyle(color: Colors.grey[800]),
-                                hintText: "Title",
-                                fillColor: Colors.white70,
-                              ),
-                            ),
-                          ),
-                        ),
-                        //  Expanded(child: CategoriesDropDown()),
-                      ],
-                    ),
+                    header(),
+                    titleField(controller),
                     const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: TextField(
-                        controller: controller.descrController.value,
-                        maxLines: 6,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30)),
-                          filled: true,
-                          hintText: "Describe your donation",
-                          fillColor: Colors.white70,
-                        ),
-                      ),
-                    ),
+                    descriptionField(controller),
                     const SizedBox(height: 20),
                     Container(
                       width: MediaQuery.of(context).size.width / 2.6,
@@ -129,99 +83,111 @@ class CreatePost extends StatelessWidget {
                   ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: 15, right: MediaQuery.of(context).size.width / 10),
-                    child: Container(
-                      width: 140,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(colors: [
-                          Color.fromARGB(255, 193, 63, 245),
-                          Color.fromARGB(255, 143, 26, 221)
-                        ]),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          await showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: const Text("Are you sure?"),
-                                  content: const Text(
-                                      "Are you sure to publish this and make some help to other ?"),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {},
-                                      style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all(
-                                                Colors.red),
-                                      ),
-                                      child: const Text(
-                                        "NO",
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        homeContr.addItem(
-                                          ItemInfo(
-                                            controller.getTitle,
-                                            ["images/p.jpg"],
-                                            "phoneNumber",
-                                            controller.getDescrobtion,
-                                            "images/p.jpg",
-                                            DateTime.now(),
-                                          ),
-                                        );
-                                        Navigator.pop(context);
-                                        controller.clear();
-                                        homeContr.setSelectedPage(0);
-                                        Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    HomePage()));
-                                      },
-                                      style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all(
-                                                Colors.green[400]),
-                                      ),
-                                      child: const Text(
-                                        "DONATE NOW",
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    )
-                                  ],
-                                );
-                              });
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.transparent,
-                          shadowColor: Colors.transparent,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30)),
-                        ),
-                        child: const Text(
-                          "SHARE",
-                          style: TextStyle(fontSize: 14),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              )
+              donateButton(context, controller)
             ],
           ),
         ),
       );
     });
+  }
+
+  Row titleField(CreatePostController controller) {
+    return Row(
+      children: [
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              // controller: titleController,
+              controller: controller.titleController.value,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                filled: true,
+                hintStyle: TextStyle(color: Colors.grey[800]),
+                hintText: "Title",
+                fillColor: Colors.white70,
+                //  errorText: controller.titlError.value,
+              ),
+            ),
+          ),
+        ),
+        //  Expanded(child: CategoriesDropDown()),
+      ],
+    );
+  }
+
+  Padding descriptionField(CreatePostController controller) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: TextField(
+        controller: controller.descrController.value,
+        maxLines: 6,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+          filled: true,
+          hintText: "Describe your donation",
+          fillColor: Colors.white70,
+
+          // errorText: controller.descError,
+        ),
+      ),
+    );
+  }
+
+  Row donateButton(BuildContext context, CreatePostController controller) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(
+              top: 15, right: MediaQuery.of(context).size.width / 10),
+          child: Container(
+            width: 140,
+            height: 30,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(colors: [
+                Color.fromARGB(255, 193, 63, 245),
+                Color.fromARGB(255, 143, 26, 221)
+              ]),
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: ElevatedButton(
+              onPressed: () async {
+                // ignore: unnecessary_null_comparison
+                if (controller.validate()) {
+                  await confirmDialog(context, controller);
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Colors.transparent,
+                shadowColor: Colors.transparent,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)),
+              ),
+              child: const Text(
+                "DONATE NOW",
+                style: TextStyle(fontSize: 14, color: Colors.white),
+              ),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  Padding header() {
+    return const Padding(
+      padding: EdgeInsets.symmetric(vertical: 15),
+      child: Center(
+        child: Text(
+          "WE ARE THANKFUL FOR YOUR HELP",
+          style: TextStyle(
+              fontWeight: FontWeight.bold, color: Colors.green, fontSize: 18),
+        ),
+      ),
+    );
   }
 
   Widget getAttachImage(
@@ -247,5 +213,57 @@ class CreatePost extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  confirmDialog(BuildContext context, CreatePostController controller) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Are you sure?"),
+            content: const Text(
+                "Are you sure to publish this and make some help to other ?"),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.red),
+                ),
+                child: const Text(
+                  "NO",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  homeContr.addItem(
+                    ItemInfo(
+                      controller.getTitle,
+                      ["images/p.jpg"],
+                      "phoneNumber",
+                      controller.getDescrobtion,
+                      "images/p.jpg",
+                      DateTime.now(),
+                    ),
+                  );
+                  Navigator.pop(context);
+                  controller.clear();
+                  homeContr.setSelectedPage(0);
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => HomePage()));
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.green[400]),
+                ),
+                child: const Text(
+                  "YES",
+                  style: TextStyle(color: Colors.white),
+                ),
+              )
+            ],
+          );
+        });
   }
 }

@@ -35,13 +35,22 @@ class CreatePostController extends GetxController {
       // ignore: curly_braces_in_flow_control_structures
       attachedImages[index] = addIcon;
     else {
-      print(index);
       attachedImages[index] = val;
     }
   }
 
   Widget getAttachedImage(int index) {
     return attachedImages[index];
+  }
+
+  bool validate() {
+    if (titleController.value.text.isEmpty ||
+        descrController.value.text.isEmpty ||
+        (attachedImages[0] == addIcon &&
+            attachedImages[1] == addIcon &&
+            attachedImages[2] == addIcon)) return false;
+
+    return true;
   }
 
   void clear() {
