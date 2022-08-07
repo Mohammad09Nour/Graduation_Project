@@ -47,8 +47,8 @@ class PasswordFormField extends StatelessWidget {
           fillColor: kPrimaryColor.withAlpha(50),
           filled: true,
           hintText: "Password",
-          prefixIcon: Padding(
-            padding: const EdgeInsets.only(right: 10.0, left: 15),
+          prefixIcon: const Padding(
+            padding: EdgeInsets.only(right: 10.0, left: 15),
             child: Icon(
               Icons.lock,
               color: kPrimaryColor,

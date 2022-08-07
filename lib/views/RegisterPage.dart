@@ -1,5 +1,8 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/password_args.dart';
+import 'package:flutter_application_1/views/home_page.dart';
 import 'package:flutter_application_1/widgets/emaiFormField.dart';
 import 'package:flutter_application_1/widgets/passwordFormField.dart';
 import 'package:flutter_application_1/widgets/submit_button.dart';
@@ -15,7 +18,7 @@ class RegisterPage extends StatelessWidget {
   final PasswordArgs passArgs;
   final formKey;
 
-  RegisterPage({
+  const RegisterPage({
     Key? key,
     required this.isLogin,
     required this.passArgs,
@@ -45,8 +48,8 @@ class RegisterPage extends StatelessWidget {
                 //    crossAxisAlignment: CrossAxisAlignment.center,
                 //  mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 10),
                     child: Center(
                       child: Text(
                         "Wlecome",
@@ -57,30 +60,45 @@ class RegisterPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                   getPic(),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                   Form(
                       key: formKey,
                       child: Column(
                         children: [
-                          UserName(),
-                          SizedBox(height: 10),
+                          const UserName(),
+                          const SizedBox(height: 10),
                           EmailField(size: passArgs.size),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           PasswordFormField(args: passArgs),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           getPhoneNumber(),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           SubmitButton(
                               text: "SIGN UP",
                               size: passArgs.size,
-                              callbackValidator: () {
+                              callbackValidator: () async {
                                 if (formKey.currentState!.validate()) {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text('Processing Data')),
+                                    SnackBar(
+                                      content: Text('Processing Data'),
+                                      action: SnackBarAction(
+                                        label: 'Hide',
+                                        onPressed: () {
+                                          ScaffoldMessenger.of(context)
+                                              .hideCurrentSnackBar();
+                                        },
+                                      ),
+                                      duration: Duration(seconds: 3),
+                                    ),
                                   );
+                                  await Future.delayed(Duration(seconds: 3));
+                                  //  Navigator.pop(context);
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => HomePage()));
                                 }
                               }),
                         ],
@@ -101,8 +119,9 @@ class RegisterPage extends StatelessWidget {
         validator: (val) {
           if (val == null || val.isEmpty) return 'Please Enter some text';
 
-          if (!val.startsWith('+963') || val.length != 14)
+          if (!val.startsWith('+963') || val.length != 13) {
             return 'Please enter a valid number';
+          }
           return null;
         },
         cursorWidth: 2.5,
@@ -115,7 +134,7 @@ class RegisterPage extends StatelessWidget {
           fillColor: kPrimaryColor.withAlpha(50),
           filled: true,
           hintText: 'Phone Number',
-          prefixIcon: Padding(
+          prefixIcon: const Padding(
             padding: EdgeInsets.only(left: 15, right: 10),
             child: Icon(
               Icons.phone,
@@ -131,8 +150,8 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
-  Container getPic() {
-    return Container(
+  SizedBox getPic() {
+    return SizedBox(
       width: passArgs.size.width * 0.8,
       height: passArgs.size.height * 0.2,
       child: SvgPicture.asset('images/register.svg'),

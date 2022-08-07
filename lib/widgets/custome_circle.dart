@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class OpenPainter extends CustomPainter {
-  static Container getCustomeCircle(BuildContext context) {
-    return Container(
+  static SizedBox getCustomeCircle(BuildContext context) {
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: 250,
       child: CustomPaint(
@@ -14,9 +14,9 @@ class OpenPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var paint1 = Paint()
-      ..color = Color(0xff3F5CEB)
+      ..color = const Color(0xff3F5CEB)
       ..style = PaintingStyle.fill;
-    canvas.drawCircle(Offset(280, -130), 350, paint1);
+    canvas.drawCircle(const Offset(280, -130), 350, paint1);
   }
 
   @override

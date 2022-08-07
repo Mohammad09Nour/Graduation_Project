@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/controller/profile_controller.dart';
-import 'package:get/get.dart';
+
 import 'package:image_picker_web/image_picker_web.dart';
 
 class EditPersonalInfo extends StatelessWidget {
@@ -31,7 +31,7 @@ class EditPersonalInfo extends StatelessWidget {
           child: ListView(children: [
             GestureDetector(
               onTap: () {
-                var newImg = selectImages();
+                // var newImg = selectImages();
               },
               child: Center(
                 child: Stack(children: [

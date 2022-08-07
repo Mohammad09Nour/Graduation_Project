@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/item_info.dart';
 import 'package:flutter_application_1/views/details_page.dart';
@@ -10,12 +8,13 @@ class MySearchDelegate extends SearchDelegate {
     return [
       IconButton(
           onPressed: () {
-            if (query.isEmpty)
+            if (query.isEmpty) {
               close(context, null);
-            else
+            } else {
               query = '';
+            }
           },
-          icon: Icon(Icons.clear))
+          icon: const Icon(Icons.clear))
     ];
   }
 
@@ -25,7 +24,7 @@ class MySearchDelegate extends SearchDelegate {
         onPressed: () {
           close(context, null);
         },
-        icon: Icon(Icons.arrow_back));
+        icon: const Icon(Icons.arrow_back));
   }
 
   @override
@@ -39,7 +38,7 @@ class MySearchDelegate extends SearchDelegate {
   }
 
   Widget getResult(context) {
-    ItemInfo item = new ItemInfo('this title for test', ['images/pp.jpg'],
+    ItemInfo item = ItemInfo('this title for test', ['images/pp.jpg'],
         '963956816079', 'someDescription for test', 'p.jpg', DateTime(2020));
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -57,39 +56,39 @@ class MySearchDelegate extends SearchDelegate {
               decoration: BoxDecoration(boxShadow: [
                 BoxShadow(
                     color: Colors.grey.withOpacity(0.15),
-                    offset: Offset(0.0, 1.0), //(x,y)
+                    offset: const Offset(0.0, 1.0), //(x,y)
                     blurRadius: 3.0,
                     spreadRadius: 4)
               ]),
               child: Row(
                 children: [
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width / 2.8,
                     height: 110,
-                    child: Image(
+                    child: const Image(
                       image: AssetImage("images/pp.jpg"),
                       fit: BoxFit.cover,
                     ),
                   ),
-                  SizedBox(width: 20),
+                  const SizedBox(width: 20),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "Some short title",
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(height: 8),
-                      Row(children: [
+                      const SizedBox(height: 8),
+                      Row(children: const [
                         Text("Donator : ",
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold)),
                         Text("Samer")
                       ]),
-                      SizedBox(height: 8),
-                      Row(children: [
+                      const SizedBox(height: 8),
+                      Row(children: const [
                         Icon(Icons.location_on_sharp),
                         Text("Homs, Al-baath")
                       ])

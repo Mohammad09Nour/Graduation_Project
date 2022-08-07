@@ -36,8 +36,8 @@ class EmailField extends StatelessWidget {
           fillColor: kPrimaryColor.withAlpha(50),
           filled: true,
           hintText: "mohammad@gmail.com",
-          prefixIcon: Padding(
-            padding: const EdgeInsets.only(left: 15, right: 10),
+          prefixIcon: const Padding(
+            padding: EdgeInsets.only(left: 15, right: 10),
             child: Icon(
               Icons.email,
               color: kPrimaryColor,

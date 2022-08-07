@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_application_1/constants/constants.dart';
 import 'package:flutter_application_1/models/item_info.dart';
 import 'package:flutter_application_1/views/details_page.dart';
 
@@ -19,14 +16,14 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
         body: Column(
       children: [
-        Container(
+        SizedBox(
           height: MediaQuery.of(context).size.height * 0.6,
           child: Stack(
             children: [
               Container(
                 height: MediaQuery.of(context).size.height * 0.4,
                 width: MediaQuery.of(context).size.width,
-                color: Color(0xff8BDBD5),
+                color: const Color(0xff8BDBD5),
               ),
               Positioned(
                 top: 24,
@@ -35,7 +32,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_back_ios,
                     color: Colors.white,
                   ),
@@ -53,7 +50,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     boxShadow: [
                       BoxShadow(
                           color: Colors.grey.withOpacity(0.15),
-                          offset: Offset(0.0, 1.0), //(x,y)
+                          offset: const Offset(0.0, 1.0), //(x,y)
                           blurRadius: 3.0,
                           spreadRadius: 10)
                     ],
@@ -76,13 +73,13 @@ class _ProfilePageState extends State<ProfilePage> {
                           boxShadow: [
                             BoxShadow(
                                 color: Colors.grey.withOpacity(0.15),
-                                offset: Offset(0.0, 1.0), //(x,y)
+                                offset: const Offset(0.0, 1.0), //(x,y)
                                 blurRadius: 3.0,
                                 spreadRadius: 8)
                           ]),
                     ),
-                    SizedBox(height: 8),
-                    Text("Sliman",
+                    const SizedBox(height: 8),
+                    const Text("Sliman",
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold)),
                     Text(
@@ -100,8 +97,8 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         Container(
           alignment: Alignment.centerLeft,
-          padding: EdgeInsets.only(left: 20, bottom: 10, top: 20),
-          child: Text(
+          padding: const EdgeInsets.only(left: 20, bottom: 10, top: 20),
+          child: const Text(
             "Contribution",
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
@@ -115,9 +112,9 @@ class _ProfilePageState extends State<ProfilePage> {
             child: 
           ),*/
               GridView.count(
-            physics: ScrollPhysics(),
+            physics: const ScrollPhysics(),
             scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.symmetric(horizontal: 5, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 12),
             crossAxisCount: 1,
             crossAxisSpacing: 5,
             mainAxisSpacing: 10,
@@ -254,7 +251,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ))
               : Container(),
           isSold
-              ? Center(
+              ? const Center(
                   child: Text(
                     "Done",
                     style: TextStyle(

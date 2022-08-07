@@ -117,7 +117,7 @@ class EditMyProfile extends StatelessWidget {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        LoginScreen()));
+                                                        const LoginScreen()));
                                           },
                                           style: ButtonStyle(
                                             backgroundColor:
@@ -171,7 +171,7 @@ class EditMyProfile extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      Container(
+                      SizedBox(
                         /// color: Colors.blue,
                         height: size.height * 0.65,
                         child: ListView.builder(
@@ -216,7 +216,7 @@ class EditMyProfile extends StatelessWidget {
                     color: Colors.grey.withOpacity(0.5),
                     spreadRadius: 5,
                     blurRadius: 7,
-                    offset: Offset(0, 3), // changes position of shadow
+                    offset: const Offset(0, 3), // changes position of shadow
                   ),
                 ],
               ),

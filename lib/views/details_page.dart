@@ -64,16 +64,16 @@ class _DetailsPageState extends State<DetailsPage> {
                 onPressed: () {
                   launchUrl(Uri.parse('geo://09568164'));
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.location_on_rounded,
                   color: kPrimaryColor,
                 ),
-                label: Text(
+                label: const Text(
                   "Hama, Abi Al-fiedaa",
                   style: TextStyle(fontSize: 20, color: Colors.black),
                 )),
-            SizedBox(width: 2),
-            Text(
+            const SizedBox(width: 2),
+            const Text(
               "(19 min) 5,9 km",
               style: TextStyle(color: kPrimaryColor, fontSize: 18),
             ),
@@ -91,7 +91,7 @@ class _DetailsPageState extends State<DetailsPage> {
             const EdgeInsets.only(left: 20, right: 10, top: 15, bottom: 15),
         child: Text(
           item.descriptions,
-          style: TextStyle(
+          style: const TextStyle(
             letterSpacing: 1.0,
             fontSize: 21,
           ),
@@ -104,8 +104,8 @@ class _DetailsPageState extends State<DetailsPage> {
   Container description(double opacity) {
     return Container(
       color: Colors.grey.withOpacity(0),
-      child: Padding(
-        padding: const EdgeInsets.only(
+      child: const Padding(
+        padding: EdgeInsets.only(
           top: 8,
           left: 15,
           bottom: 5,

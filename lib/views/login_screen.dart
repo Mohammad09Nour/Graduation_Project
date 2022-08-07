@@ -20,7 +20,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
-  final controller = Get.find<AccountController>();
+  final controller = Get.put(AccountController);
   bool isLogin = true;
   late Animation<double> containerSize;
   late AnimationController animationController;
@@ -55,129 +55,123 @@ class _LoginScreenState extends State<LoginScreen>
         .animate(
             CurvedAnimation(parent: animationController, curve: Curves.linear));
 
-    return GetX<AccountController>(builder: (controller) {
-      return Hero(
-        tag: 'first',
-        child: Scaffold(
-          body: GestureDetector(
-            onTap: () {
-              FocusScopeNode currentFocus = FocusScope.of(context);
-              if (!currentFocus.hasPrimaryFocus) {
-                currentFocus.unfocus();
-              }
-            },
-            child: Stack(
-              children: [
-                getRightCircel(),
-                getLeftCircel(),
-                closeButton(size),
-                AnimatedOpacity(
-                  opacity: isLogin ? 1.0 : 0.0,
-                  duration: animationDuration * 4,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: SingleChildScrollView(
-                      child: Container(
-                        width: size.width,
-                        height: defaultLoginSize,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              "Wlecome Back",
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 40),
-                            getPic(size),
-                            const SizedBox(height: 40),
-                            Form(
-                                key: _loginKey,
-                                child: Column(
-                                  children: [
-                                    const UserName(),
-                                    const SizedBox(height: 10),
-                                    PasswordFormField(
-                                      args: PasswordArgs(
-                                        size: size,
-                                        callback: () {
-                                          setState(() {
-                                            _passwordVisible =
-                                                !_passwordVisible;
-                                          });
-                                        },
-                                        passwordVisible: _passwordVisible,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    SubmitButton(
-                                      text: "LOGIN",
-                                      size: size,
-                                      callbackValidator: () {
-                                        if (_loginKey.currentState!
-                                            .validate()) {
-                                          // controller.logIn(_loginKey.c, pass)
-                                          /* ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              const SnackBar(
-                                                  content: Text('Processing Data')),
-                                            );*/
-
-                                          Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      HomePage()));
-                                        }
-                                      },
-                                    ),
-                                    const SizedBox(height: 10),
-                                  ],
-                                ))
-                          ],
+    return Scaffold(
+      body: GestureDetector(
+        onTap: () {
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
+          }
+        },
+        child: Stack(
+          children: [
+            getRightCircel(),
+            getLeftCircel(),
+            closeButton(size),
+            AnimatedOpacity(
+              opacity: isLogin ? 1.0 : 0.0,
+              duration: animationDuration * 4,
+              child: Align(
+                alignment: Alignment.center,
+                child: SingleChildScrollView(
+                  child: SizedBox(
+                    width: size.width,
+                    height: defaultLoginSize,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Wlecome Back",
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
+                        const SizedBox(height: 40),
+                        getPic(size),
+                        const SizedBox(height: 40),
+                        Form(
+                            key: _loginKey,
+                            child: Column(
+                              children: [
+                                const UserName(),
+                                const SizedBox(height: 10),
+                                PasswordFormField(
+                                  args: PasswordArgs(
+                                    size: size,
+                                    callback: () {
+                                      setState(() {
+                                        _passwordVisible = !_passwordVisible;
+                                      });
+                                    },
+                                    passwordVisible: _passwordVisible,
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                SubmitButton(
+                                  text: "LOGIN",
+                                  size: size,
+                                  callbackValidator: () {
+                                    if (_loginKey.currentState!.validate()) {
+                                      //controller.logIn(_loginKey., pass)
+                                      /* ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                                content: Text('Processing Data')),
+                                          );*/
+
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HomePage()));
+                                    }
+                                  },
+                                ),
+                                const SizedBox(height: 10),
+                              ],
+                            ))
+                      ],
                     ),
                   ),
                 ),
-                DoYouHaveAnAccount(
-                    viewInsets: viewInsets,
-                    animationController: animationController,
-                    isLogin: isLogin,
-                    callback: () {
-                      setState(() {
-                        isLogin = !isLogin;
-                      });
-                    },
-                    containerSize: containerSize),
-                RegisterPage(
-                  formKey: _regKey,
-                  isLogin: isLogin,
-                  animationDuration: animationDuration,
-                  defaultLoginSize: defaultLoginSize,
-                  passArgs: PasswordArgs(
-                    size: size,
-                    callback: () {
-                      setState(() {
-                        _passwordVisible = !_passwordVisible;
-                      });
-                    },
-                    passwordVisible: _passwordVisible,
-                  ),
-                )
-              ],
+              ),
             ),
-          ),
+            DoYouHaveAnAccount(
+                viewInsets: viewInsets,
+                animationController: animationController,
+                isLogin: isLogin,
+                callback: () {
+                  setState(() {
+                    isLogin = !isLogin;
+                  });
+                },
+                containerSize: containerSize),
+            RegisterPage(
+              formKey: _regKey,
+              isLogin: isLogin,
+              animationDuration: animationDuration,
+              defaultLoginSize: defaultLoginSize,
+              passArgs: PasswordArgs(
+                size: size,
+                callback: () {
+                  setState(() {
+                    _passwordVisible = !_passwordVisible;
+                  });
+                },
+                passwordVisible: _passwordVisible,
+              ),
+            )
+          ],
         ),
-      );
-    });
+      ),
+    );
+    ;
   }
 
-  Container getPic(Size size) {
-    return Container(
+  SizedBox getPic(Size size) {
+    return SizedBox(
       width: size.width * 0.8,
       height: size.height * 0.2,
       child: SvgPicture.asset('images/register.svg'),

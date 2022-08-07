@@ -202,7 +202,6 @@ class CreatePost extends StatelessWidget {
           onTap: () async {
             selectImages(index).then((value) {
               if (value != null) {
-                print("HI");
                 controller.saveImage(index, Image.memory(value));
               } else {
                 controller.saveImage(index, value);
@@ -241,10 +240,10 @@ class CreatePost extends StatelessWidget {
                   homeContr.addItem(
                     ItemInfo(
                       controller.getTitle,
-                      ["images/p.jpg"],
+                      ["images/x5.jpg"],
                       "phoneNumber",
                       controller.getDescrobtion,
-                      "images/p.jpg",
+                      "images/pro3.jpg",
                       DateTime.now(),
                     ),
                   );

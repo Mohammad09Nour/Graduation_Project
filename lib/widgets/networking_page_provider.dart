@@ -5,7 +5,9 @@ import 'package:flutter_application_1/models/item_info.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 
 class NetworkingPageHeader extends SliverPersistentHeaderDelegate {
+  @override
   final double minExtent;
+  @override
   final double maxExtent;
   final ItemInfo item;
 
@@ -32,7 +34,7 @@ class NetworkingPageHeader extends SliverPersistentHeaderDelegate {
             ),
           ),
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                   colors: [Colors.transparent, Colors.black54],
                   stops: [0.5, 1],

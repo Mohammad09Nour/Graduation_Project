@@ -23,7 +23,7 @@ class UserName extends StatelessWidget {
           fillColor: kPrimaryColor.withAlpha(50),
           filled: true,
           hintText: 'Username',
-          prefixIcon: Padding(
+          prefixIcon: const Padding(
             padding: EdgeInsets.only(left: 15, right: 10),
             child: Icon(
               Icons.person_rounded,

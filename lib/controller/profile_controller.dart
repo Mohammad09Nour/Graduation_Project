@@ -5,13 +5,13 @@ import 'package:get/get.dart';
 class ProfileController extends GetxController {
   var items = [].obs;
   var user = User(items: [
-    ItemInfo("title", ["images/nat.jpg"], "+963956816079", "descriptions",
+    ItemInfo("title", ["images/x.jpg"], "+963956816079", "descriptions",
         "images/nat2.jpg", DateTime.now()),
-    ItemInfo("title", ["images/nat3.jpg"], "+963956816079", "descriptions",
+    ItemInfo("title", ["images/x4.jpg"], "+963956816079", "descriptions",
         "images/nat2.jpg", DateTime.now()),
-    ItemInfo("title", ["images/nat2.jpg"], "+963956816079", "descriptions",
+    ItemInfo("title", ["images/x5.jpg"], "+963956816079", "descriptions",
         "images/nat3.jpg", DateTime.now()),
-    ItemInfo("title", ["images/nat.jpg"], "+963956816079", "descriptions",
+    ItemInfo("title", ["images/x2.jpg"], "+963956816079", "descriptions",
         "images/nat.jpg", DateTime.now())
   ]).obs;
 

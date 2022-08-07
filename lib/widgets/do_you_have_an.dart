@@ -26,7 +26,7 @@ class DoYouHaveAnAccount extends StatelessWidget {
     return AnimatedBuilder(
       animation: animationController,
       builder: (context, child) {
-        if (isLogin && viewInsets == 0 || !isLogin)
+        if (isLogin && viewInsets == 0 || !isLogin) {
           return GestureDetector(
             onTap: () {
               if (isLogin) {
@@ -40,15 +40,15 @@ class DoYouHaveAnAccount extends StatelessWidget {
                 width: double.infinity,
                 height: containerSize.value,
                 alignment: Alignment.center,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(100),
                       topRight: Radius.circular(100),
                     ),
                     color: kBackgroundColor),
                 child: isLogin
-                    ? Text(
-                        "Don't have an account? LOGIN",
+                    ? const Text(
+                        "Don't have an account? Register",
                         style: TextStyle(
                           fontSize: 18,
                           color: kPrimaryColor,
@@ -58,6 +58,7 @@ class DoYouHaveAnAccount extends StatelessWidget {
               ),
             ),
           );
+        }
 
         return Container();
       },
