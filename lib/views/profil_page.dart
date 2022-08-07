@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/constants/constants.dart';
 import 'package:flutter_application_1/models/item_info.dart';
 import 'package:flutter_application_1/views/details_page.dart';
 
@@ -23,7 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
               Container(
                 height: MediaQuery.of(context).size.height * 0.4,
                 width: MediaQuery.of(context).size.width,
-                color: const Color(0xff8BDBD5),
+                color: kPrimaryColor,
               ),
               Positioned(
                 top: 24,

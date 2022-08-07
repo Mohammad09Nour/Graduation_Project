@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/constants/constants.dart';
 import 'package:flutter_application_1/controller/profile_controller.dart';
 
 import 'package:image_picker_web/image_picker_web.dart';
@@ -21,6 +22,7 @@ class EditPersonalInfo extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Edit"),
+        backgroundColor: kPrimaryColor,
       ),
       body: Container(
         padding: const EdgeInsets.only(left: 15, top: 20, right: 15),
@@ -64,7 +66,7 @@ class EditPersonalInfo extends StatelessWidget {
                               color: Colors.white,
                               width: 4,
                             ),
-                            color: Colors.blue),
+                            color: kPrimaryColor),
                         child: const Icon(
                           Icons.edit,
                           color: Colors.white,
