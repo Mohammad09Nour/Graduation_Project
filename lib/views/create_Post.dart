@@ -3,6 +3,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/controller/account_controller.dart';
 import 'package:flutter_application_1/controller/create_post_controller.dart';
 import 'package:flutter_application_1/controller/home_page_controller.dart';
 import 'package:flutter_application_1/models/item_info.dart';
@@ -31,7 +32,7 @@ class CreatePost extends StatelessWidget {
       return Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("images/background.jpg"),
+            image: AssetImage("images/createPostBG.jpg"),
             fit: BoxFit.fill,
           ),
         ),
@@ -195,14 +196,14 @@ class CreatePost extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
       child: Container(
-        color: Colors.white70,
+        color: Color.fromARGB(147, 153, 145, 37),
         width: MediaQuery.of(context).size.width / 3,
         height: 125,
         child: GestureDetector(
           onTap: () async {
             selectImages(index).then((value) {
               if (value != null) {
-                controller.saveImage(index, Image.memory(value));
+                controller.saveImage(index, value);
               } else {
                 controller.saveImage(index, value);
               }
@@ -215,6 +216,7 @@ class CreatePost extends StatelessWidget {
   }
 
   confirmDialog(BuildContext context, CreatePostController controller) {
+    var account = Get.find<AccountController>();
     showDialog(
         context: context,
         builder: (context) {
@@ -237,19 +239,20 @@ class CreatePost extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
+                  controller.setImageUrls();
                   homeContr.addItem(
                     ItemInfo(
-                      controller.getTitle,
-                      ["images/x5.jpg"],
-                      "phoneNumber",
-                      controller.getDescrobtion,
-                      "images/pro3.jpg",
-                      DateTime.now(),
-                    ),
+                        controller.getTitle,
+                        controller.getImageUrls,
+                        "+963956816079",
+                        controller.getDescrobtion,
+                        "account.user.value.image",
+                        DateTime.now(),
+                        account.user.value),
                   );
                   Navigator.pop(context);
-                  controller.clear();
                   homeContr.setSelectedPage(0);
+                  controller.clear();
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => HomePage()));
                 },

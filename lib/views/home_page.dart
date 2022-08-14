@@ -137,12 +137,12 @@ class HomePage extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                ProfilePage(url: item.urlProfileImage)));
+                                ProfilePage(user: item.user)));
                   },
                   child: CircleAvatar(
                     radius: 17,
                     child: ClipOval(
-                      child: Center(child: Image.asset(item.urlProfileImage)),
+                      child: Center(child: Image.memory(item.user.image)),
                     ),
                   ),
                 ),
@@ -151,8 +151,8 @@ class HomePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    const Text(
-                      "Sliman",
+                    Text(
+                      item.user.name,
                       style:
                           TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
                     ),
@@ -187,7 +187,7 @@ class HomePage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: ReadMoreText(
-                    item.descriptions,
+                    item.title,
                     trimLines: 2,
                     trimMode: TrimMode.Line,
                     colorClickableText: kPrimaryColor,
@@ -218,7 +218,7 @@ class HomePage extends StatelessWidget {
                       ],
                       image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: AssetImage(item.imageUrl[0])),
+                          image: MemoryImage(item.imageUrl![0])),
                     ),
                   ),
                 ),

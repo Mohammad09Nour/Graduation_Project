@@ -2,7 +2,10 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
+import 'package:flutter_application_1/controller/account_controller.dart';
 import 'package:flutter_application_1/controller/profile_controller.dart';
+import 'package:flutter_application_1/models/user.dart';
+import 'package:get/get.dart';
 
 import 'package:image_picker_web/image_picker_web.dart';
 
@@ -15,10 +18,14 @@ class EditPersonalInfo extends StatelessWidget {
     return selectedImages;
   }
 
-  final ProfileController controller;
-  EditPersonalInfo({Key? key, required this.controller}) : super(key: key);
+  final controller = Get.find<AccountController>();
+  late User user;
+  //final ProfileController controller;
+  EditPersonalInfo({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    user = controller.user.value;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Edit"),
@@ -31,51 +38,54 @@ class EditPersonalInfo extends StatelessWidget {
             FocusScope.of(context).unfocus();
           },
           child: ListView(children: [
-            GestureDetector(
-              onTap: () {
-                // var newImg = selectImages();
-              },
-              child: Center(
-                child: Stack(children: [
-                  Container(
-                    width: 130,
-                    height: 130,
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 4, color: Colors.white),
-                      boxShadow: [
-                        BoxShadow(
-                            spreadRadius: 2,
-                            blurRadius: 10,
-                            color: Colors.black.withOpacity(0.1))
-                      ],
-                      shape: BoxShape.circle,
-                      image: const DecorationImage(
-                          image: AssetImage("images/pp.jpg"),
-                          fit: BoxFit.cover),
+            Obx(
+              () => GestureDetector(
+                onTap: () async {
+                  var newImg = await selectImages();
+                  controller.updatProfilePic(newImg!);
+                },
+                child: Center(
+                  child: Stack(children: [
+                    Container(
+                      width: 130,
+                      height: 130,
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 4, color: Colors.white),
+                        boxShadow: [
+                          BoxShadow(
+                              spreadRadius: 2,
+                              blurRadius: 10,
+                              color: Colors.black.withOpacity(0.1))
+                        ],
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            image: MemoryImage(controller.user.value.image),
+                            fit: BoxFit.cover),
+                      ),
                     ),
-                  ),
-                  Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: Colors.white,
-                              width: 4,
-                            ),
-                            color: kPrimaryColor),
-                        child: const Icon(
-                          Icons.edit,
-                          color: Colors.white,
-                        ),
-                      )),
-                  const SizedBox(
-                    height: 30,
-                  )
-                ]),
+                    Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Container(
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: Colors.white,
+                                width: 4,
+                              ),
+                              color: kPrimaryColor),
+                          child: const Icon(
+                            Icons.edit,
+                            color: Colors.white,
+                          ),
+                        )),
+                    const SizedBox(
+                      height: 30,
+                    )
+                  ]),
+                ),
               ),
             ),
             buildTextField("UserName", "Demo", false),
@@ -92,7 +102,7 @@ class EditPersonalInfo extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 50),
                   child: OutlinedButton(
                     onPressed: () {
-                      controller.clear();
+                      // controller.clear();
                       Navigator.pop(context);
                     },
                     style: OutlinedButton.styleFrom(
@@ -112,10 +122,11 @@ class EditPersonalInfo extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 50),
                   child: ElevatedButton(
                     onPressed: () {
+                      controller.editInfo(user);
                       Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.blue,
+                      primary: kPrimaryColor,
                       padding: const EdgeInsets.symmetric(horizontal: 50),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
@@ -141,6 +152,16 @@ class EditPersonalInfo extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 30),
       child: TextField(
+        onChanged: ((value) {
+          if (lableText == "UserName") {
+            user.name = value;
+          } else if (lableText == "Email") {
+            user.email = value;
+          } else if (lableText == "Password") {
+          } else {
+            user.location = value;
+          }
+        }),
         obscureText: isPasswordTextField ? isObscurePass : false,
         decoration: InputDecoration(
           suffix: isPasswordTextField

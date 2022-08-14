@@ -1,10 +1,13 @@
+import 'dart:typed_data';
+
 import 'package:flutter_application_1/models/item_info.dart';
 
 class User {
   String name;
   String email;
-  String image;
+  Uint8List image;
   String phoneNumber;
+  String location;
   List<ItemInfo> items;
 
   get getName => name;
@@ -14,13 +17,15 @@ class User {
   get getImage => image;
 
   get getPhoneNumber => phoneNumber;
+  get getLocation => location;
 
   get getItems => items;
 
   User(
       {this.name = "Sliman",
       this.email = "sliman@gmai.com",
-      this.image = "images/p.jpg",
       this.phoneNumber = "+963956816079",
-      this.items = const []});
+      required this.items,
+      this.location = "Syria, Homs",
+      required this.image});
 }

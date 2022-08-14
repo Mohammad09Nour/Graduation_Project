@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
+import 'package:flutter_application_1/models/user.dart';
 
 class UserName extends StatelessWidget {
-  const UserName({Key? key}) : super(key: key);
+  User user;
+  UserName({Key? key, required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +15,7 @@ class UserName extends StatelessWidget {
           if (val == null || val.isEmpty) return 'Please Enter some text';
           return null;
         },
+        onChanged: ((value) => user.name = value),
         cursorWidth: 2.5,
         cursorHeight: 24,
         cursorColor: kPrimaryColor,

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/password_args.dart';
+import 'package:flutter_application_1/models/user.dart';
 
 import '../constants/constants.dart';
 
 class PasswordFormField extends StatelessWidget {
   final PasswordArgs args;
-  const PasswordFormField({
-    Key? key,
-    required this.args,
-  }) : super(key: key);
+  User user;
+  PasswordFormField({Key? key, required this.args, required this.user})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

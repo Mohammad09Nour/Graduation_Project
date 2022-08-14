@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/models/user.dart';
 
 import '../constants/constants.dart';
 
 class EmailField extends StatelessWidget {
   final Size size;
-  const EmailField({Key? key, required this.size}) : super(key: key);
+  User user;
+  EmailField({Key? key, required this.size, required this.user})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +29,7 @@ class EmailField extends StatelessWidget {
               !val.contains('@')) return 'Please enter a valid email';
           return null;
         },
+        onChanged: (value) => user.email = value,
         cursorWidth: 2.5,
         cursorHeight: 24,
         cursorColor: kPrimaryColor,

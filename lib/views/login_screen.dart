@@ -1,7 +1,11 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_1/constants/constants.dart';
 import 'package:flutter_application_1/controller/account_controller.dart';
 import 'package:flutter_application_1/models/password_args.dart';
+import 'package:flutter_application_1/models/user.dart';
 import 'package:flutter_application_1/views/RegisterPage.dart';
 import 'package:flutter_application_1/views/home_page.dart';
 import 'package:flutter_application_1/widgets/do_you_have_an.dart';
@@ -32,6 +36,9 @@ class _LoginScreenState extends State<LoginScreen>
     super.initState();
     animationController =
         AnimationController(vsync: this, duration: animationDuration);
+    var con = Get.put(AccountController());
+
+    con.setDefaultProfilePic();
   }
 
   @override
@@ -55,6 +62,7 @@ class _LoginScreenState extends State<LoginScreen>
         .animate(
             CurvedAnimation(parent: animationController, curve: Curves.linear));
 
+    User user = User(items: [], image: Uint8List(0));
     return Scaffold(
       body: GestureDetector(
         onTap: () {
@@ -95,9 +103,12 @@ class _LoginScreenState extends State<LoginScreen>
                             key: _loginKey,
                             child: Column(
                               children: [
-                                const UserName(),
+                                UserName(
+                                  user: user,
+                                ),
                                 const SizedBox(height: 10),
                                 PasswordFormField(
+                                  user: User(items: [], image: Uint8List(0)),
                                   args: PasswordArgs(
                                     size: size,
                                     callback: () {
@@ -114,12 +125,9 @@ class _LoginScreenState extends State<LoginScreen>
                                   size: size,
                                   callbackValidator: () {
                                     if (_loginKey.currentState!.validate()) {
-                                      //controller.logIn(_loginKey., pass)
-                                      /* ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            const SnackBar(
-                                                content: Text('Processing Data')),
-                                          );*/
+                                      var controller =
+                                          Get.find<AccountController>();
+                                      controller.logIn(user);
 
                                       Navigator.pushReplacement(
                                           context,

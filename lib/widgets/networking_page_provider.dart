@@ -26,8 +26,8 @@ class NetworkingPageHeader extends SliverPersistentHeaderDelegate {
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.5,
                 color: Colors.white,
-                child: Image.asset(
-                  item.imageUrl[0],
+                child: Image.memory(
+                  item.imageUrl![0],
                   fit: BoxFit.contain,
                 ),
               ),

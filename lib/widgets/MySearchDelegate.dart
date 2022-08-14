@@ -1,5 +1,8 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/item_info.dart';
+import 'package:flutter_application_1/models/user.dart';
 import 'package:flutter_application_1/views/details_page.dart';
 
 class MySearchDelegate extends SearchDelegate {
@@ -38,8 +41,14 @@ class MySearchDelegate extends SearchDelegate {
   }
 
   Widget getResult(context) {
-    ItemInfo item = ItemInfo('this title for test', ['images/pp.jpg'],
-        '963956816079', 'someDescription for test', 'p.jpg', DateTime(2020));
+    ItemInfo item = ItemInfo(
+        'this title for test',
+        [],
+        '963956816079',
+        'someDescription for test',
+        'p.jpg',
+        DateTime(2020),
+        User(items: [], image: Uint8List(0)));
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListView.builder(itemBuilder: (context, int idx) {

@@ -1,13 +1,17 @@
 import 'dart:html';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/controller/account_controller.dart';
 import 'package:flutter_application_1/models/password_args.dart';
+import 'package:flutter_application_1/models/user.dart';
 import 'package:flutter_application_1/views/home_page.dart';
 import 'package:flutter_application_1/widgets/emaiFormField.dart';
 import 'package:flutter_application_1/widgets/passwordFormField.dart';
 import 'package:flutter_application_1/widgets/submit_button.dart';
 import 'package:flutter_application_1/widgets/username_text_field.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 import '../constants/constants.dart';
 
@@ -33,6 +37,9 @@ class RegisterPage extends StatelessWidget {
   }
 
   AnimatedOpacity getBody(context, formKey) {
+    var controller = Get.find<AccountController>();
+    User currUser = User(items: [], image: Uint8List(0));
+
     return AnimatedOpacity(
       opacity: isLogin ? 0.0 : 1.0,
       duration: animationDuration * 5,
@@ -67,19 +74,22 @@ class RegisterPage extends StatelessWidget {
                       key: formKey,
                       child: Column(
                         children: [
-                          const UserName(),
+                          UserName(
+                            user: currUser,
+                          ),
                           const SizedBox(height: 10),
-                          EmailField(size: passArgs.size),
+                          EmailField(size: passArgs.size, user: currUser),
                           const SizedBox(height: 10),
-                          PasswordFormField(args: passArgs),
+                          PasswordFormField(args: passArgs, user: currUser),
                           const SizedBox(height: 10),
-                          getPhoneNumber(),
+                          getPhoneNumber(currUser),
                           const SizedBox(height: 10),
                           SubmitButton(
                               text: "SIGN UP",
                               size: passArgs.size,
                               callbackValidator: () async {
                                 if (formKey.currentState!.validate()) {
+                                  controller.register(currUser);
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text('Processing Data'),
@@ -112,7 +122,7 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
-  Padding getPhoneNumber() {
+  Padding getPhoneNumber(User user) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: kHorizonatlPadding),
       child: TextFormField(
@@ -124,6 +134,7 @@ class RegisterPage extends StatelessWidget {
           }
           return null;
         },
+        onChanged: (value) => user.phoneNumber = value,
         cursorWidth: 2.5,
         cursorHeight: 24,
         cursorColor: kPrimaryColor,

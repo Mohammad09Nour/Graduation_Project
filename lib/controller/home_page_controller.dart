@@ -1,3 +1,4 @@
+import 'package:flutter_application_1/controller/account_controller.dart';
 import 'package:flutter_application_1/models/item_info.dart';
 import 'package:get/get.dart';
 
@@ -18,18 +19,38 @@ class HomePageController extends GetxController {
     // ignore: invalid_use_of_protected_member
     tmp = items.value.cast<ItemInfo>();
 
-    tmp.add(ItemInfo("title1", ["images/x.jpg"], "phoneNumber", "descriptions",
-        "images/pp.jpg", DateTime(2020)));
+    /* tmp.add(ItemInfo(
+        "Name of what you donate",
+        ["images/x.jpg"],
+        "+963956816079",
+        "some brief descriptions of the item you want to donate and help someone else",
+        "images/pp.jpg",
+        DateTime(2020)));
 
-    tmp.add(ItemInfo("title2", ["images/x2.jpg"], "phoneNumber", "descriptions",
-        "images/pro3.jpg", DateTime(2020)));
+    tmp.add(ItemInfo(
+        "Name of what you donate",
+        ["images/x2.jpg"],
+        "+963956816079",
+        "some brief descriptions of the item you want to donate and help someone else",
+        "images/pro3.jpg",
+        DateTime(2020)));
 
-    tmp.add(ItemInfo("title3", ["images/x3.jpg"], "phoneNumber", "descriptions",
-        "images/pro2.jpg", DateTime(2020)));
+    tmp.add(ItemInfo(
+        "Name of what you donate",
+        ["images/x3.jpg"],
+        "+963956816079",
+        "some brief descriptions of the item you want to donate and help someone else",
+        "images/pro2.jpg",
+        DateTime(2020)));
 
-    tmp.add(ItemInfo("title4", ["images/x4.jpg"], "phoneNumber", "descriptions",
-        "images/pro1.jpg", DateTime(2020)));
-
+    tmp.add(ItemInfo(
+        "Name of what you donate",
+        ["images/x4.jpg"],
+        "+963956816079",
+        "some brief descriptions of the item you want to donate and help someone else",
+        "images/pro1.jpg",
+        DateTime(2020)));
+*/
     tmp.sort((a, b) {
       return b.createdDate.compareTo(a.createdDate);
     });
@@ -44,6 +65,9 @@ class HomePageController extends GetxController {
     items.sort((a, b) {
       return b.createdDate.compareTo(a.createdDate);
     });
+    var controller = Get.find<AccountController>();
+
+    controller.addItem(item);
   }
 
   int get getSelectedPage => selectedPageIndex.value;

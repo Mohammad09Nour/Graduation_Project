@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
+import 'package:flutter_application_1/controller/account_controller.dart';
 import 'package:flutter_application_1/models/item_info.dart';
+import 'package:flutter_application_1/models/user.dart';
 import 'package:flutter_application_1/views/details_page.dart';
+import 'package:flutter_application_1/widgets/categories_dropdown.dart';
+import 'package:get/get.dart';
 
 class ProfilePage extends StatefulWidget {
-  final String url;
-  const ProfilePage({Key? key, required this.url}) : super(key: key);
+  final User user;
+  const ProfilePage({Key? key, required this.user}) : super(key: key);
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -68,7 +72,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       height: 150,
                       decoration: BoxDecoration(
                           image: DecorationImage(
-                              fit: BoxFit.cover, image: AssetImage(widget.url)),
+                              fit: BoxFit.cover,
+                              image: MemoryImage(widget.user.image)),
                           borderRadius: BorderRadius.circular(75),
                           color: Colors.white,
                           boxShadow: [
@@ -80,11 +85,18 @@ class _ProfilePageState extends State<ProfilePage> {
                           ]),
                     ),
                     const SizedBox(height: 8),
-                    const Text("Sliman",
-                        style: TextStyle(
+                    Text(widget.user.name,
+                        style: const TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold)),
                     Text(
-                      "Syria, Aleppo",
+                      widget.user.email,
+                      style: TextStyle(
+                          fontSize: 17,
+                          color: Colors.grey[400],
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      widget.user.location,
                       style: TextStyle(
                           fontSize: 17,
                           color: Colors.grey[400],
@@ -100,129 +112,44 @@ class _ProfilePageState extends State<ProfilePage> {
           alignment: Alignment.centerLeft,
           padding: const EdgeInsets.only(left: 20, bottom: 10, top: 20),
           child: const Text(
-            "Contribution",
+            "Contributions",
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
         ),
-        Expanded(
-          child: /*Container(
-            margin: EdgeInsets.only(left: 6, right: 6, top: 6),
-            decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.15),
-                borderRadius: BorderRadius.vertical(top: Radius.circular(25))),
-            child: 
-          ),*/
-              GridView.count(
-            physics: const ScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 12),
-            crossAxisCount: 1,
-            crossAxisSpacing: 5,
-            mainAxisSpacing: 10,
-            childAspectRatio: 5 / 6,
-            children: [
-              buildCard('images/p.jpg', false),
-              buildCard('images/ppp.jpg', true),
-              buildCard('images/pp.jpg', false),
-              buildCard('images/pp.jpg', false)
-            ],
-          ),
-        )
+        (widget.user.items.length != 0)
+            ? Expanded(
+                child: GridView.builder(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 12),
+                    physics: const ScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisSpacing: 5,
+                            mainAxisSpacing: 10,
+                            childAspectRatio: 5 / 6,
+                            crossAxisCount: 1),
+                    itemCount: widget.user.items.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return buildCard(
+                          widget.user.items[index], index % 2 == 1);
+                    }),
+              )
+            : Center(
+                child: Text("There is no contribution yet"),
+              )
       ],
-    )
-        /*Column(
-        children: [
-          Container(
-            margin: EdgeInsets.only(top: 35),
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: Row(
-              children: [
-                
-              ],
-            ),
-          ),
-          Hero(
-            tag: widget.url,
-            child: Container(
-              height: 100,
-              width: 100,
-              alignment: Alignment.center,
-              margin: EdgeInsets.only(top: 28),
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      spreadRadius: 5,
-                      blurRadius: 25),
-                ],
-                borderRadius: BorderRadius.circular(45),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage(widget.url),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(height: 10),
-          Text(
-            "Sliman",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          Text(
-            "Syria, Aleppo",
-            style:
-                TextStyle(color: Colors.grey[400], fontWeight: FontWeight.bold),
-          ),
-          Container(
-            alignment: Alignment.bottomCenter,
-            padding: EdgeInsets.only(left: 10, bottom: 10, top: 20),
-            child: Text(
-              "Contribution",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.only(left: 6, right: 6, top: 6),
-              decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.15),
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(25))),
-              child: GridView.count(
-                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 12),
-                crossAxisCount: 2,
-                crossAxisSpacing: 5,
-                mainAxisSpacing: 10,
-                childAspectRatio: 5 / 6,
-                children: [
-                  buildCard('images/p.jpg'),
-                  buildCard('images/ppp.jpg'),
-                  buildCard('images/pp.jpg'),
-                  buildCard('images/pp.jpg')
-                ],
-              ),
-            ),
-          )
-        ],
-      ),*/
-        );
+    ));
   }
 
-  Widget buildCard(String url, bool isSold) {
+  Widget buildCard(ItemInfo item, bool isSold) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => DetailsPage(
-              item: ItemInfo(
-                "title",
-                [url],
-                "phoneNumber",
-                "descriptions",
-                url,
-                DateTime(2020),
-              ),
+              item: item,
             ),
           ),
         );
@@ -239,7 +166,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 borderRadius: BorderRadius.circular(30),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage(url),
+                  image: MemoryImage(item.imageUrl![0]),
                 ),
               ),
             ),

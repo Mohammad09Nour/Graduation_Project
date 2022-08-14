@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/constants.dart';
+import 'package:flutter_application_1/controller/account_controller.dart';
+import 'package:flutter_application_1/controller/home_page_controller.dart';
 import 'package:flutter_application_1/controller/profile_controller.dart';
 import 'package:flutter_application_1/models/item_info.dart';
 import 'package:flutter_application_1/views/details_page.dart';
@@ -17,7 +19,7 @@ class EditMyProfile extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     double pad = 0.05 * size.height;
 
-    return GetX<ProfileController>(builder: (controller) {
+    return GetX<AccountController>(builder: (controller) {
       return Scaffold(
         backgroundColor: const Color(0xffF8F8FA),
         body: Stack(
@@ -35,10 +37,10 @@ class EditMyProfile extends StatelessWidget {
                         Container(
                           height: 0.18 * size.height,
                           width: 0.27 * size.width,
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
-                              image: AssetImage("images/ppp.jpg"),
+                              image: MemoryImage(controller.user.value.image),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -76,9 +78,7 @@ class EditMyProfile extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              EditPersonalInfo(
-                                                controller: controller,
-                                              )));
+                                              EditPersonalInfo()));
                                 },
                                 icon: const Icon(
                                   Icons.edit,
@@ -112,6 +112,9 @@ class EditMyProfile extends StatelessWidget {
                                         ),
                                         TextButton(
                                           onPressed: () {
+                                            var con =
+                                                Get.find<HomePageController>();
+                                            con.selectedPageIndex(0);
                                             Navigator.pop(context);
                                             Navigator.pushReplacement(
                                                 context,
@@ -177,8 +180,17 @@ class EditMyProfile extends StatelessWidget {
                         child: ListView.builder(
                             itemCount: controller.user.value.items.length,
                             itemBuilder: (context, int index) {
-                              return _myCard(
-                                  controller.user.value.items[index], context);
+                              if (index % 2 == 1) return Container();
+
+                              if (index + 1 <
+                                  controller.user.value.items.length) {
+                                return _myCard(
+                                    controller.user.value.items[index],
+                                    controller.user.value.items[index + 1],
+                                    context);
+                              }
+                              return _myCard(controller.user.value.items[index],
+                                  null, context);
                             }),
                       )
                     ],
@@ -192,7 +204,7 @@ class EditMyProfile extends StatelessWidget {
     });
   }
 
-  Widget _myCard(ItemInfo item, BuildContext context) {
+  Widget _myCard(ItemInfo item, ItemInfo? item2, BuildContext context) {
     return Row(
       children: [
         GestureDetector(
@@ -222,8 +234,8 @@ class EditMyProfile extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.asset(
-                  item.imageUrl[0],
+                child: Image.memory(
+                  item.imageUrl![0],
                   width: MediaQuery.of(context).size.width * 0.4,
                   height: MediaQuery.of(context).size.height * 0.30,
                 ),
@@ -231,62 +243,64 @@ class EditMyProfile extends StatelessWidget {
             ),
           ),
         ),
-        Stack(
-          clipBehavior: Clip.none,
-          children: [
-            GestureDetector(
-              onTap: () {},
-              child: Padding(
-                padding: const EdgeInsets.only(left: 30.0, top: 15),
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.4,
-                  height: MediaQuery.of(context).size.height * 0.30,
-                  decoration: BoxDecoration(
-                    color: Colors.white70,
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: Colors.grey, width: 0.4),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset:
-                            const Offset(0, 3), // changes position of shadow
+        (item2 != null)
+            ? Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  GestureDetector(
+                    onTap: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 30.0, top: 15),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        height: MediaQuery.of(context).size.height * 0.30,
+                        decoration: BoxDecoration(
+                          color: Colors.white70,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: Colors.grey, width: 0.4),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: const Offset(
+                                  0, 3), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.memory(
+                            item2.imageUrl![0],
+                            width: MediaQuery.of(context).size.width * 0.4,
+                            height: MediaQuery.of(context).size.height * 0.28,
+                          ),
+                        ),
                       ),
-                    ],
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.asset(
-                      item.imageUrl[0],
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      height: MediaQuery.of(context).size.height * 0.28,
                     ),
                   ),
-                ),
-              ),
-            ),
-            Positioned(
-              left: 30,
-              top: 17,
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.4,
-                height: MediaQuery.of(context).size.height * 0.30,
-                decoration: BoxDecoration(
-                    color: Colors.black38,
-                    borderRadius: BorderRadius.circular(10)),
-                child: const Center(
-                    child: Text(
-                  "Done",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                )),
-              ),
-            )
-          ],
-        ),
+                  Positioned(
+                    left: 30,
+                    top: 17,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.30,
+                      decoration: BoxDecoration(
+                          color: Colors.black38,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: const Center(
+                          child: Text(
+                        "Done",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      )),
+                    ),
+                  )
+                ],
+              )
+            : Container(),
       ],
     );
   }
